@@ -1,6 +1,6 @@
 # enumerates DllCharacteristics from the IMAGE_OPTIONAL_HEADER of all loaded modules
 
-from pykd import *
+from pykd import dbgCommand, getModulesList
 
 mods = getModulesList()
 
