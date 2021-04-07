@@ -8,13 +8,16 @@ parser.add_argument('-o', '--offset', help="memory offset to search from")
 parser.add_argument('-d', '--discard', nargs='*', help="bytes to discard")
 args = parser.parse_args()
 
+if len(sys.argv) < 2:
+    parser.print_help()
+    exit(0)
+
 offset = int(args.offset, 16)
 omitted = [int(x, 16) for x in args.discard]
 
-print("omitting: {}".format([hex(b) for b in omitted]))
+print("omitting: {}".format([b for b in args.discard]))
 
-# create a byte array
-refArray = [x for x in range(256)]
+refArray = bytearray(range(256))
 
 # remove the omitted bytes
 for b in omitted:
@@ -30,6 +33,4 @@ for x in range(len(refArray)):
         print("unable to find {} in memory!".format(hex(refArray[x])))
         break
     
-#print(memoryDump)
-
 
