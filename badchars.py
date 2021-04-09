@@ -31,6 +31,8 @@ memoryDump = loadBytes(offset, len(refArray), False)
 for x in range(len(refArray)):
     if refArray[x] != memoryDump[x]:
         print("unable to find {} in memory!".format(hex(refArray[x])))
-        break
-    
+        exit(0)
+
+print("found all bytes in memory!")
+        
 
