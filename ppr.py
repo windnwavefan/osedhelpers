@@ -17,7 +17,8 @@ length = args.length
 ppr = []
 for p1 in range(0x58, 0x5f):
     for p2 in range(0x58, 0x5f):
-        ppr.append([hex(p1), hex(p2), hex(0xc3)])
+        if p1 != 0x5c & p2 != 0x5c:
+            ppr.append([hex(p1), hex(p2), hex(0xc3)])
 
 # search for each of the sequences starting at addr
 for p in ppr:
