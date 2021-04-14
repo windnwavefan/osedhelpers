@@ -1,7 +1,7 @@
 # given a location in memory prints missing values from all possible byte values
 
 import sys, argparse
-from pykd import loadBytes
+import pykd
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-o', '--offset', help="memory offset to search from")
@@ -12,7 +12,7 @@ if len(sys.argv) < 2:
     parser.print_help()
     exit(0)
 
-offset = int(args.offset, 16)
+addr = int(args.offset, 16)
 omitted = [int(x, 16) for x in args.discard]
 
 print("omitting: {}".format([b for b in args.discard]))
@@ -23,13 +23,10 @@ refArray = bytearray(range(256))
 for b in omitted:
     refArray.remove(b)
 
-print("reading {} bytes from offset {}".format(len(refArray), hex(offset)))
-
-# compare to the memory offset given
-memoryDump = loadBytes(offset, len(refArray), False)
+print("comparing bytes from offset {}".format(hex(addr)))
 
 for x in range(len(refArray)):
-    if refArray[x] != memoryDump[x]:
+    if pykd.ptrByte(addr + x) != refArray[x]:
         print("unable to find {} in memory!".format(hex(refArray[x])))
         exit(0)
 
