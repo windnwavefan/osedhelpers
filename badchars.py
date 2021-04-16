@@ -26,9 +26,12 @@ for b in omitted:
 print("comparing bytes from offset {}".format(hex(addr)))
 
 for x in range(len(refArray)):
-    if pykd.ptrByte(addr + x) != refArray[x]:
-        print("unable to find {} in memory!".format(hex(refArray[x])))
-        exit(0)
+    if pykd.isValid(pykd.ptrByte(addr + x)):
+        if pykd.ptrByte(addr + x) != refArray[x]:
+            print("unable to find {} in memory!".format(hex(refArray[x])))
+            exit(0)
+    else:
+        print("address {} is not a valid memory address!".format(hex(addr + x)))
 
 print("found all bytes in memory!")
         
