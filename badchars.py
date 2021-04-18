@@ -32,6 +32,7 @@ for x in range(len(refArray)):
             exit(0)
     else:
         print("address {} is not a valid memory address!".format(hex(addr + x)))
+        exit(0)
 
 print("found all bytes in memory!")
         
